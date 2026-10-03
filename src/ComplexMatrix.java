@@ -47,4 +47,23 @@ public class ComplexMatrix {
         }
         return sub;
     }
+
+    //метод умножения двух матриц
+    public ComplexMatrix multiply(ComplexMatrix other) {
+        if (this.cols != other.rows) {
+            throw new IllegalArgumentException("Матрицы не соответствуют требованиям для операции умножения. Количество столбцов первой матрицы должно быть равно количеству строк второй матрицы!");
+        }
+        ComplexMatrix mult = new ComplexMatrix(this.rows, other.cols);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < other.cols; j++) {
+                ComplexNumber count = new ComplexNumber(0, 0);
+                for (int k = 0; k < this.cols; k++) {
+                    count = count.additionn(this.getValue(i, k).multiply(other.getValue(k, j))); //считается одно значение
+                }
+                mult.setValue(i, j, count);
+            }
+        }
+        return mult;
+    }
+
 }
